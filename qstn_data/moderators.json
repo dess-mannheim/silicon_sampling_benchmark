@@ -1,0 +1,41 @@
+{
+  "age_band": [
+    "18-29",
+    "30-44",
+    "45-59",
+    "60+"
+  ],
+  "education": [
+    "Bachelor's degree",
+    "Doctorate degree / Ph.D.",
+    "High school diploma / GED",
+    "Less than high school",
+    "Master's degree / Professional degree",
+    "Some college or Associate's degree"
+  ],
+  "gender": [
+    "Female",
+    "Male",
+    "Other"
+  ],
+  "income": [
+    "$100,000 to $167,999",
+    "$168,000 or more",
+    "$30,000 to $55,999",
+    "$56,000 to $99,999",
+    "Less than $30,000"
+  ],
+  "party": [
+    "Democrat",
+    "Independent",
+    "Other",
+    "Republican"
+  ],
+  "race": [
+    "Asian / Asian American",
+    "Black / African American",
+    "Hispanic / Latino",
+    "Other",
+    "White / Caucasian"
+  ]
+}
