@@ -13,3 +13,7 @@ maintainer/
 slurm/logs
 
 __pycache__
+
+
+raw_results
+results
