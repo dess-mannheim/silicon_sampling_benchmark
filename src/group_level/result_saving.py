@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,6 +12,7 @@ from typing import Any, Iterable
 import pandas as pd
 from json_repair import repair_json
 
+from .imputation import impute_missing_predictions
 from .qstn_setup import PromptMetadata, repository_root
 
 OUTCOME_COMPONENTS: dict[str, list[str]] = {
@@ -52,6 +54,17 @@ OUTCOME_COMPONENTS: dict[str, list[str]] = {
         "behavior_donate",
     ],
 }
+
+OUTCOMES = [
+    *OUTCOME_COMPONENTS,
+    "trust_post",
+    "distrust_post",
+    "donation_ams",
+    "newsletter_signup",
+    "funding_perceptions",
+    "belief_post",
+    "policy_general",
+]
 
 
 def model_basename(model_id: str) -> str:
@@ -133,12 +146,22 @@ def outcome_values(answers: dict[str, Any]) -> dict[str, float]:
     return {outcome: value for outcome, value in outcomes.items() if value is not None}
 
 
-def output_paths(model_id: str, root: Path) -> dict[str, Path]:
+def current_run_id() -> str:
+    """Return the Slurm run id used for per-run JSON artifacts."""
+    return (
+        os.environ.get("SLURM_ARRAY_JOB_ID")
+        or os.environ.get("SLURM_JOB_ID")
+        or "local"
+    )
+
+
+def output_paths(model_id: str, root: Path, run_id: str | None = None) -> dict[str, Path]:
     """Return model-specific paths for raw, parsed, main, and moderator outputs."""
     basename = model_basename(model_id)
+    run_id = current_run_id() if run_id is None else run_id
     return {
-        "raw": root / "raw_results" / f"{basename}_T2_primary_raw.json",
-        "parsed": root / "results" / f"{basename}_T2_primary_parsed.json",
+        "raw": root / "raw_results" / run_id / f"{basename}_T2_primary_raw.json",
+        "parsed": root / "results" / run_id / f"{basename}_T2_primary_parsed.json",
         "main": root / "predictions" / f"{basename}_T2_primary_main.csv",
         "moderator": root / "predictions" / f"{basename}_T2_primary_moderator.csv",
     }
@@ -150,12 +173,14 @@ def save_tier2_results(
     survey_results: Iterable[Any],
     prompt_metadata: Iterable[PromptMetadata],
     root: Path | None = None,
+    run_id: str | None = None,
 ) -> dict[str, Path]:
-    """Overwrite all Tier 2 outputs for one model and return their paths."""
+    """Persist Tier 2 outputs for one model and return their paths."""
     root = repository_root() if root is None else root
-    paths = output_paths(model_id, root)
+    run_id = current_run_id() if run_id is None else run_id
+    paths = output_paths(model_id, root, run_id)
     for directory in {path.parent for path in paths.values()}:
-        directory.mkdir(exist_ok=True)
+        directory.mkdir(parents=True, exist_ok=True)
 
     results = list(survey_results)
     metadata = list(prompt_metadata)
@@ -186,7 +211,12 @@ def save_tier2_results(
     timestamp = datetime.now(timezone.utc).isoformat()
     paths["raw"].write_text(
         json.dumps(
-            {"model": model_id, "created_at": timestamp, "records": raw_records},
+            {
+                "model": model_id,
+                "run_id": run_id,
+                "created_at": timestamp,
+                "records": raw_records,
+            },
             indent=2,
             ensure_ascii=False,
             default=str,
@@ -196,7 +226,12 @@ def save_tier2_results(
     )
     paths["parsed"].write_text(
         json.dumps(
-            {"model": model_id, "created_at": timestamp, "records": parsed_records},
+            {
+                "model": model_id,
+                "run_id": run_id,
+                "created_at": timestamp,
+                "records": parsed_records,
+            },
             indent=2,
             ensure_ascii=False,
         )
@@ -213,24 +248,12 @@ def save_tier2_results(
             prediction_rows.append({**cell, "outcome": outcome, "mean": mean})
 
     values = pd.DataFrame(prediction_rows)
-    main = pd.DataFrame(columns=["condition", "outcome", "mean"])
-    moderator = pd.DataFrame(
-        columns=["condition", "moderator", "moderator_level", "outcome", "mean"]
+    moderator = impute_missing_predictions(values, root=root, outcomes=OUTCOMES)
+    main = (
+        moderator.groupby(["condition", "outcome"], as_index=False)["mean"]
+        .mean()
+        .sort_values(["condition", "outcome"])
     )
-    if not values.empty:
-        main = (
-            values.groupby(["condition", "outcome"], as_index=False)["mean"]
-            .mean()
-            .sort_values(["condition", "outcome"])
-        )
-        moderator = (
-            values.groupby(
-                ["condition", "moderator", "moderator_level", "outcome"],
-                as_index=False,
-            )["mean"]
-            .mean()
-            .sort_values(["condition", "moderator", "moderator_level", "outcome"])
-        )
 
     main.to_csv(paths["main"], index=False)
     moderator.to_csv(paths["moderator"], index=False)

@@ -113,7 +113,6 @@ def run_tier2_survey(
         "tensor_parallel_size": tensor_parallel_size,
         "dtype": dtype,
         "enforce_eager": enforce_eager,
-        "disable_custom_all_reduce": disable_custom_all_reduce,
     }
     if max_num_seqs is not None:
         llm_kwargs["max_num_seqs"] = max_num_seqs

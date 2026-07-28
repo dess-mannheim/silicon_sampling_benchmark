@@ -9,3 +9,7 @@ maintainer/
 .RData
 .Rproj.user/
 .DS_Store
+
+slurm/logs
+
+__pycache__

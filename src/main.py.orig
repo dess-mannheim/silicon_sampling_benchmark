@@ -21,18 +21,6 @@ def args():
     h = p.add_mutually_exclusive_group()
     h.add_argument("--enforce-eager", action="store_true", default=False)
     h.add_argument("--no-enforce-eager", action="store_false", dest="enforce_eager")
-    r = p.add_mutually_exclusive_group()
-    r.add_argument(
-        "--disable-custom-all-reduce",
-        action="store_true",
-        default=False,
-        help="Use the standard distributed all-reduce implementation.",
-    )
-    r.add_argument(
-        "--no-disable-custom-all-reduce",
-        action="store_false",
-        dest="disable_custom_all_reduce",
-    )
     p.add_argument("--dtype", default="bfloat16")
     return p.parse_args()
 
@@ -52,7 +40,6 @@ def main():
         dtype=a.dtype,
         max_tokens=a.max_tokens,
         enforce_eager=a.enforce_eager,
-        disable_custom_all_reduce=a.disable_custom_all_reduce,
         enable_thinking=a.enable_thinking,
         reasoning_start_token=a.reasoning_start_token,
         reasoning_end_token=a.reasoning_end_token,

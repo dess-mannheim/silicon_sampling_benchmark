@@ -4450,6 +4450,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "ipykernel" },
     { name = "ipywidgets" },
+    { name = "json-repair" },
     { name = "qstn", extra = ["vllm"] },
 ]
 
@@ -4457,6 +4458,7 @@ dependencies = [
 requires-dist = [
     { name = "ipykernel", specifier = ">=7.3.0" },
     { name = "ipywidgets", specifier = ">=8.1.8" },
+    { name = "json-repair", specifier = ">=0.61.7" },
     { name = "qstn", extras = ["vllm"], specifier = ">=0.5.2" },
 ]
 

@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=prodem
-#SBATCH --output=slurm/logs/%x-%A_%a.out
-#SBATCH --error=slurm/logs/%x-%A_%a.err
+#SBATCH --job-name=silicon_sampling_benchmark
+#SBATCH --output=slurm/logs/%A/%x_%a.out
+#SBATCH --error=slurm/logs/%A/%x_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --gres=gpu:1
-#SBATCH --array=0-10
+#SBATCH --array=0-8
 #SBATCH --nodelist=compute2
 
 set -euo pipefail
@@ -18,8 +18,6 @@ MODEL_IDS=(
     "google/gemma-4-E4B-it"
     "google/gemma-4-31B-it"
     "google/gemma-4-26B-A4B-it"
-    "Qwen/Qwen3.6-35B-A3B"
-    "Qwen/Qwen3.6-27B"
     "Qwen/Qwen3.5-9B"
     "Qwen/Qwen3.5-4B"
     "Qwen/Qwen3.5-2B"
@@ -28,8 +26,6 @@ MODEL_IDS=(
 )
 
 ENABLE_THINKING_BY_MODEL=(
-    true
-    true
     true
     true
     true
@@ -49,8 +45,6 @@ REASONING_START_TOKENS=(
     "<think>"
     "<think>"
     "<think>"
-    "<think>"
-    "<think>"
     "analysis"
     "analysis"
 )
@@ -60,8 +54,6 @@ REASONING_END_TOKENS=(
     "<channel|>"
     "<channel|>"
     "<channel|>"
-    "</think>"
-    "</think>"
     "</think>"
     "</think>"
     "</think>"
@@ -88,7 +80,7 @@ ENABLE_THINKING="${ENABLE_THINKING_BY_MODEL[$SLURM_ARRAY_TASK_ID]}"
 REASONING_START_TOKEN="${REASONING_START_TOKENS[$SLURM_ARRAY_TASK_ID]}"
 REASONING_END_TOKEN="${REASONING_END_TOKENS[$SLURM_ARRAY_TASK_ID]}"
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REPO_ROOT="${SLURM_SUBMIT_DIR:-$PWD}"
 cd "$REPO_ROOT"
 
 ARGS=(
@@ -105,6 +97,6 @@ fi
 
 # Model-specific resource and quantization settings remain manual by design.
 export VLLM_USE_DEEP_GEMM=0
-export VLLM_MXFP4_USE_MARLIN=1
+export VLLM_USE_FLASHINFER_SAMPLER=0
 
 uv run python src/main.py "${ARGS[@]}"
