@@ -6,10 +6,19 @@ from typing import Any
 from qstn.prompt_builder import LLMPrompt
 from qstn.survey_manager import conduct_survey_battery
 from qstn.utilities import placeholder
-from vllm import LLM
+from common.qstn_runtime import build_llm
 
-SYSTEM_PROMPT = "You will be given a demographic and a set of questions. Your task is to predict the mean answer of this demographic for every question. ONLY respond in a JSON object with every question ID as a numeric key-value prediction."
-PROMPT = "Predict the mean answer for each question for a representative sample of 5000 people of this demographic. {demographic_name}: {demographic_value}.\nBefore the participants were asked these questions, they were instructed to read:\n\n{text}\n\nQUESTION_ID: QUESTION? ANSWER_OPTIONS\n{questions}"
+SYSTEM_PROMPT = (
+    "You will be given a demographic and a set of questions. Your task is to predict the mean answer of this demographic for every question.\n"
+    "ONLY respond in a JSON, that includes your prediction for every question in the following format:\n"
+    "{\n"
+    'trust_competence_1: "Your prediction e.g., 50"\n'
+    "//All Other Questions\n"
+    'behavior_donate: "Your prediction e.g., 50"\n'
+    "}"
+)
+
+PROMPT = "Predict the mean answer for each question for a representative sample of 5000 people of this demographic. {demographic_name}: {demographic_value}.\nBefore the participants were asked these questions, they were instructed to read:\n\n{text}\n\n Format is QUESTION_ID: QUESTION? ANSWER_OPTIONS\n{questions}"
 
 
 @dataclass(frozen=True)
@@ -106,32 +115,15 @@ def run_tier2_survey(
     root=None,
 ):
     prompts, metadata = build_prompts(root)
-    llm_kwargs = {
-        "model": model_id,
-        "max_model_len": max_model_len,
-        "gpu_memory_utilization": gpu_memory_utilization,
-        "tensor_parallel_size": tensor_parallel_size,
-        "dtype": dtype,
-        "enforce_eager": enforce_eager,
-        "disable_custom_all_reduce": disable_custom_all_reduce,
-    }
-    if max_num_seqs is not None:
-        llm_kwargs["max_num_seqs"] = max_num_seqs
-
-    compilation_config = qwen36_compilation_config(model_id)
-    if compilation_config is not None:
-        llm_kwargs["compilation_config"] = compilation_config
-
-    model = LLM(
-        **llm_kwargs,
-        attention_config={"backend": "TRITON_ATTN"},
-        moe_backend="triton",
-        linear_backend="triton",
-        gdn_prefill_backend="triton",
-        kernel_config={
-            "enable_flashinfer_autotune": False,
-            "enable_cutedsl_warmup": False,
-        },
+    model = build_llm(
+        model_id=model_id,
+        max_model_len=max_model_len,
+        gpu_memory_utilization=gpu_memory_utilization,
+        tensor_parallel_size=tensor_parallel_size,
+        max_num_seqs=max_num_seqs,
+        dtype=dtype,
+        enforce_eager=enforce_eager,
+        disable_custom_all_reduce=disable_custom_all_reduce,
     )
     return conduct_survey_battery(
         model,

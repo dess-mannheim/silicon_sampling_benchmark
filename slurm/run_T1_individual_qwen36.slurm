@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=silicon_sampling_benchmark_qwen36
+#SBATCH --job-name=silicon_sampling_benchmark_t1_individual_qwen36
 #SBATCH --output=slurm/logs/%A/%x_%a.out
 #SBATCH --error=slurm/logs/%A/%x_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --gres=gpu:2
-#SBATCH --array=0-1
+#SBATCH --array=0-1%1
 #SBATCH --nodelist=compute2
 
 set -euo pipefail
@@ -55,7 +55,9 @@ ARGS=(
     --tensor-parallel-size 2
     --max-num-seqs 100
     --gpu-memory-utilization 0.95
+    --enforce-eager
+    --disable-custom-all-reduce
     --enable-thinking
 )
 
-uv run python src/main.py "${ARGS[@]}"
+uv run python src/main.py --experiment individual "${ARGS[@]}"

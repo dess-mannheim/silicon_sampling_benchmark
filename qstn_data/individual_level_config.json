@@ -1,0 +1,6 @@
+{
+  "n_individuals": 18000,
+  "seed": 20260728,
+  "population_distribution_file": "qstn_data/us_2026_pairwise_joint_demographics.json",
+  "persona_file": "personas/individual_level_personas.csv"
+}

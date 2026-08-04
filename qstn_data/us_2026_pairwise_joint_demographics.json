@@ -1,0 +1,931 @@
+{
+  "schema_version": "1.0",
+  "exact_attribute_names_preserved": true,
+  "source_basis": {
+    "as_of": "2026-07-28",
+    "target_population": "U.S. resident adults age 18+",
+    "benchmark_method": "Latest available 2026 political benchmark plus latest available Census demographic structure, calibrated by iterative proportional fitting to the exact supplied marginals.",
+    "demographic_structure": {
+      "source": "U.S. Census Bureau, 2024 ACS 1-Year and 2024 CPS ASEC",
+      "availability_note": "The 2024 ACS 1-Year PUMS and detailed tables were released in December 2025 and are the latest annual microdata available as of this file's as-of date.",
+      "urls": [
+        "https://www.census.gov/programs-surveys/acs/microdata/access/2024.html",
+        "https://www.census.gov/data/tables/2024/demo/educational-attainment/cps-detailed-tables.html"
+      ]
+    },
+    "party_structure": {
+      "source": "Pew Research Center, 2026 National Public Opinion Reference Survey party affiliation fact sheet",
+      "url": "https://www.pewresearch.org/politics/fact-sheet/party-affiliation-fact-sheet-npors/"
+    }
+  },
+  "n_individuals": 18000,
+  "seed": 20260728,
+  "demographics": {
+    "age_band": {
+      "18-29": 20,
+      "30-44": 25,
+      "45-59": 22,
+      "60+": 33
+    },
+    "education": {
+      "Bachelor's degree": 22,
+      "Doctorate degree / Ph.D.": 2,
+      "High school diploma / GED": 29,
+      "Less than high school": 9,
+      "Master's degree / Professional degree": 12,
+      "Some college or Associate's degree": 26
+    },
+    "gender": {
+      "Female": 50,
+      "Male": 48,
+      "Other": 2
+    },
+    "income": {
+      "$100,000 to $167,999": 21,
+      "$168,000 or more": 20,
+      "$30,000 to $55,999": 17,
+      "$56,000 to $99,999": 25,
+      "Less than $30,000": 17
+    },
+    "party": {
+      "Democrat": 29,
+      "Independent": 33,
+      "Other": 10,
+      "Republican": 28
+    },
+    "race": {
+      "Asian / Asian American": 7,
+      "Black / African American": 12,
+      "Hispanic / Latino": 19,
+      "Other": 4,
+      "White / Caucasian": 58
+    }
+  },
+  "pairwise_joint_distributions": {
+    "age_band_x_gender": {
+      "dimensions": [
+        "age_band",
+        "gender"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "high",
+      "notes": [
+        "ACS 2024 age-by-sex; 'Other' gender modeled"
+      ],
+      "joint_percent": {
+        "18-29": {
+          "Female": 9.6005807,
+          "Male": 9.99943547,
+          "Other": 0.39998383
+        },
+        "30-44": {
+          "Female": 12.13314715,
+          "Male": 12.3668677,
+          "Other": 0.49998515
+        },
+        "45-59": {
+          "Female": 10.852643,
+          "Male": 10.70736297,
+          "Other": 0.43999403
+        },
+        "60+": {
+          "Female": 17.41362915,
+          "Male": 14.92633386,
+          "Other": 0.66003699
+        }
+      },
+      "gender_given_age_band_percent": {
+        "18-29": {
+          "Female": 48.002904,
+          "Male": 49.997177,
+          "Other": 1.999919
+        },
+        "30-44": {
+          "Female": 48.532589,
+          "Male": 49.467471,
+          "Other": 1.999941
+        },
+        "45-59": {
+          "Female": 49.330195,
+          "Male": 48.669832,
+          "Other": 1.999973
+        },
+        "60+": {
+          "Female": 52.768573,
+          "Male": 45.231315,
+          "Other": 2.000112
+        }
+      }
+    },
+    "age_band_x_education": {
+      "dimensions": [
+        "age_band",
+        "education"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "high",
+      "notes": [
+        "CPS 2024 detailed education-by-age"
+      ],
+      "joint_percent": {
+        "18-29": {
+          "Bachelor's degree": 3.93834225,
+          "Doctorate degree / Ph.D.": 0.10418337,
+          "High school diploma / GED": 6.60514326,
+          "Less than high school": 2.09971563,
+          "Master's degree / Professional degree": 0.90868702,
+          "Some college or Associate's degree": 6.34392847
+        },
+        "30-44": {
+          "Bachelor's degree": 6.63095461,
+          "Doctorate degree / Ph.D.": 0.66035165,
+          "High school diploma / GED": 6.35004978,
+          "Less than high school": 1.74114075,
+          "Master's degree / Professional degree": 3.69547286,
+          "Some college or Associate's degree": 5.92203036
+        },
+        "45-59": {
+          "Bachelor's degree": 5.11735371,
+          "Doctorate degree / Ph.D.": 0.52339675,
+          "High school diploma / GED": 5.86344991,
+          "Less than high school": 1.95545717,
+          "Master's degree / Professional degree": 3.16699827,
+          "Some college or Associate's degree": 5.37334418
+        },
+        "60+": {
+          "Bachelor's degree": 6.31334943,
+          "Doctorate degree / Ph.D.": 0.71206823,
+          "High school diploma / GED": 10.18135706,
+          "Less than high school": 3.20368645,
+          "Master's degree / Professional degree": 4.22884186,
+          "Some college or Associate's degree": 8.36069699
+        }
+      },
+      "education_given_age_band_percent": {
+        "18-29": {
+          "Bachelor's degree": 19.691711,
+          "Doctorate degree / Ph.D.": 0.520917,
+          "High school diploma / GED": 33.025716,
+          "Less than high school": 10.498578,
+          "Master's degree / Professional degree": 4.543435,
+          "Some college or Associate's degree": 31.719642
+        },
+        "30-44": {
+          "Bachelor's degree": 26.523818,
+          "Doctorate degree / Ph.D.": 2.641407,
+          "High school diploma / GED": 25.400199,
+          "Less than high school": 6.964563,
+          "Master's degree / Professional degree": 14.781891,
+          "Some college or Associate's degree": 23.688121
+        },
+        "45-59": {
+          "Bachelor's degree": 23.260699,
+          "Doctorate degree / Ph.D.": 2.379076,
+          "High school diploma / GED": 26.652045,
+          "Less than high school": 8.888442,
+          "Master's degree / Professional degree": 14.395447,
+          "Some college or Associate's degree": 24.424292
+        },
+        "60+": {
+          "Bachelor's degree": 19.131362,
+          "Doctorate degree / Ph.D.": 2.157783,
+          "High school diploma / GED": 30.852597,
+          "Less than high school": 9.708141,
+          "Master's degree / Professional degree": 12.814672,
+          "Some college or Associate's degree": 25.335445
+        }
+      }
+    },
+    "age_band_x_race": {
+      "dimensions": [
+        "age_band",
+        "race"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium_high",
+      "notes": [
+        "ACS 2024 age-by-race/ethnicity iterations; calibrated to mutually exclusive race margins"
+      ],
+      "joint_percent": {
+        "18-29": {
+          "Asian / Asian American": 1.39885984,
+          "Black / African American": 2.65332637,
+          "Hispanic / Latino": 5.17084449,
+          "Other": 1.04531031,
+          "White / Caucasian": 9.73165898
+        },
+        "30-44": {
+          "Asian / Asian American": 2.0947165,
+          "Black / African American": 3.28030384,
+          "Hispanic / Latino": 5.67909099,
+          "Other": 1.14709012,
+          "White / Caucasian": 12.79879855
+        },
+        "45-59": {
+          "Asian / Asian American": 1.63618343,
+          "Black / African American": 2.71404698,
+          "Hispanic / Latino": 4.30148849,
+          "Other": 0.55743448,
+          "White / Caucasian": 12.79084662
+        },
+        "60+": {
+          "Asian / Asian American": 1.87024023,
+          "Black / African American": 3.35232281,
+          "Hispanic / Latino": 3.84857603,
+          "Other": 1.25016509,
+          "White / Caucasian": 22.67869585
+        }
+      },
+      "race_given_age_band_percent": {
+        "18-29": {
+          "Asian / Asian American": 6.994299,
+          "Black / African American": 13.266632,
+          "Hispanic / Latino": 25.854222,
+          "Other": 5.226552,
+          "White / Caucasian": 48.658295
+        },
+        "30-44": {
+          "Asian / Asian American": 8.378866,
+          "Black / African American": 13.121215,
+          "Hispanic / Latino": 22.716364,
+          "Other": 4.58836,
+          "White / Caucasian": 51.195194
+        },
+        "45-59": {
+          "Asian / Asian American": 7.437197,
+          "Black / African American": 12.336577,
+          "Hispanic / Latino": 19.55222,
+          "Other": 2.533793,
+          "White / Caucasian": 58.140212
+        },
+        "60+": {
+          "Asian / Asian American": 5.667395,
+          "Black / African American": 10.158554,
+          "Hispanic / Latino": 11.662352,
+          "Other": 3.788379,
+          "White / Caucasian": 68.723321
+        }
+      }
+    },
+    "age_band_x_income": {
+      "dimensions": [
+        "age_band",
+        "income"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium",
+      "notes": [
+        "ACS 2024 age-of-householder by household-income; boundary interpolation"
+      ],
+      "joint_percent": {
+        "18-29": {
+          "$100,000 to $167,999": 4.03167017,
+          "$168,000 or more": 3.24816734,
+          "$30,000 to $55,999": 3.77214894,
+          "$56,000 to $99,999": 5.3384607,
+          "Less than $30,000": 3.60955284
+        },
+        "30-44": {
+          "$100,000 to $167,999": 6.08837837,
+          "$168,000 or more": 5.52888225,
+          "$30,000 to $55,999": 3.88278531,
+          "$56,000 to $99,999": 6.59549511,
+          "Less than $30,000": 2.90445896
+        },
+        "45-59": {
+          "$100,000 to $167,999": 5.07628549,
+          "$168,000 or more": 5.9987964,
+          "$30,000 to $55,999": 2.95086001,
+          "$56,000 to $99,999": 4.96500098,
+          "Less than $30,000": 3.00905712
+        },
+        "60+": {
+          "$100,000 to $167,999": 5.80366597,
+          "$168,000 or more": 5.224154,
+          "$30,000 to $55,999": 6.39420574,
+          "$56,000 to $99,999": 8.10104321,
+          "Less than $30,000": 7.47693108
+        }
+      },
+      "income_given_age_band_percent": {
+        "18-29": {
+          "$100,000 to $167,999": 20.158351,
+          "$168,000 or more": 16.240837,
+          "$30,000 to $55,999": 18.860745,
+          "$56,000 to $99,999": 26.692304,
+          "Less than $30,000": 18.047764
+        },
+        "30-44": {
+          "$100,000 to $167,999": 24.353513,
+          "$168,000 or more": 22.115529,
+          "$30,000 to $55,999": 15.531141,
+          "$56,000 to $99,999": 26.38198,
+          "Less than $30,000": 11.617836
+        },
+        "45-59": {
+          "$100,000 to $167,999": 23.074025,
+          "$168,000 or more": 27.267256,
+          "$30,000 to $55,999": 13.413,
+          "$56,000 to $99,999": 22.568186,
+          "Less than $30,000": 13.677532
+        },
+        "60+": {
+          "$100,000 to $167,999": 17.586867,
+          "$168,000 or more": 15.83077,
+          "$30,000 to $55,999": 19.376381,
+          "$56,000 to $99,999": 24.548616,
+          "Less than $30,000": 22.657367
+        }
+      }
+    },
+    "age_band_x_party": {
+      "dimensions": [
+        "age_band",
+        "party"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium",
+      "notes": [
+        "Pew NPORS 2026 party alignment; age rebinning and four-category transformation"
+      ],
+      "joint_percent": {
+        "18-29": {
+          "Democrat": 6.63818584,
+          "Independent": 6.8176036,
+          "Other": 1.5451948,
+          "Republican": 4.99901576
+        },
+        "30-44": {
+          "Democrat": 7.43329957,
+          "Independent": 8.18662938,
+          "Other": 2.72405019,
+          "Republican": 6.65602086
+        },
+        "45-59": {
+          "Democrat": 5.91917891,
+          "Independent": 7.15838299,
+          "Other": 2.39751113,
+          "Republican": 6.52492698
+        },
+        "60+": {
+          "Democrat": 9.00933568,
+          "Independent": 10.83738404,
+          "Other": 3.33324388,
+          "Republican": 9.8200364
+        }
+      },
+      "party_given_age_band_percent": {
+        "18-29": {
+          "Democrat": 33.190929,
+          "Independent": 34.088018,
+          "Other": 7.725974,
+          "Republican": 24.995079
+        },
+        "30-44": {
+          "Democrat": 29.733198,
+          "Independent": 32.746518,
+          "Other": 10.896201,
+          "Republican": 26.624083
+        },
+        "45-59": {
+          "Democrat": 26.905359,
+          "Independent": 32.538104,
+          "Other": 10.897778,
+          "Republican": 29.658759
+        },
+        "60+": {
+          "Democrat": 27.301017,
+          "Independent": 32.840558,
+          "Other": 10.100739,
+          "Republican": 29.757686
+        }
+      }
+    },
+    "gender_x_education": {
+      "dimensions": [
+        "gender",
+        "education"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "high",
+      "notes": [
+        "CPS 2024 education-by-sex; 'Other' gender modeled"
+      ],
+      "joint_percent": {
+        "Female": {
+          "Bachelor's degree": 11.43618086,
+          "Doctorate degree / Ph.D.": 0.88296075,
+          "High school diploma / GED": 13.45563245,
+          "Less than high school": 4.17575423,
+          "Master's degree / Professional degree": 6.53949658,
+          "Some college or Associate's degree": 13.50997513
+        },
+        "Male": {
+          "Bachelor's degree": 10.12372318,
+          "Doctorate degree / Ph.D.": 1.07705616,
+          "High school diploma / GED": 14.96450337,
+          "Less than high school": 4.64426425,
+          "Master's degree / Professional degree": 5.22049612,
+          "Some college or Associate's degree": 11.96995692
+        },
+        "Other": {
+          "Bachelor's degree": 0.44009596,
+          "Doctorate degree / Ph.D.": 0.0399831,
+          "High school diploma / GED": 0.57986417,
+          "Less than high school": 0.17998152,
+          "Master's degree / Professional degree": 0.2400073,
+          "Some college or Associate's degree": 0.52006795
+        }
+      },
+      "education_given_gender_percent": {
+        "Female": {
+          "Bachelor's degree": 22.872362,
+          "Doctorate degree / Ph.D.": 1.765921,
+          "High school diploma / GED": 26.911265,
+          "Less than high school": 8.351508,
+          "Master's degree / Professional degree": 13.078993,
+          "Some college or Associate's degree": 27.01995
+        },
+        "Male": {
+          "Bachelor's degree": 21.09109,
+          "Doctorate degree / Ph.D.": 2.243867,
+          "High school diploma / GED": 31.176049,
+          "Less than high school": 9.675551,
+          "Master's degree / Professional degree": 10.876034,
+          "Some college or Associate's degree": 24.93741
+        },
+        "Other": {
+          "Bachelor's degree": 22.004798,
+          "Doctorate degree / Ph.D.": 1.999155,
+          "High school diploma / GED": 28.993209,
+          "Less than high school": 8.999076,
+          "Master's degree / Professional degree": 12.000365,
+          "Some college or Associate's degree": 26.003398
+        }
+      }
+    },
+    "gender_x_race": {
+      "dimensions": [
+        "gender",
+        "race"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium_high",
+      "notes": [
+        "ACS 2024 race/ethnicity-by-sex; 'Other' gender modeled"
+      ],
+      "joint_percent": {
+        "Female": {
+          "Asian / Asian American": 3.62787642,
+          "Black / African American": 6.23342284,
+          "Hispanic / Latino": 9.25003731,
+          "Other": 2.0120584,
+          "White / Caucasian": 28.87660503
+        },
+        "Male": {
+          "Asian / Asian American": 3.23212627,
+          "Black / African American": 5.52658208,
+          "Hispanic / Latino": 9.36995742,
+          "Other": 1.90794186,
+          "White / Caucasian": 27.96339237
+        },
+        "Other": {
+          "Asian / Asian American": 0.13999731,
+          "Black / African American": 0.23999508,
+          "Hispanic / Latino": 0.38000526,
+          "Other": 0.07999975,
+          "White / Caucasian": 1.1600026
+        }
+      },
+      "race_given_gender_percent": {
+        "Female": {
+          "Asian / Asian American": 7.255753,
+          "Black / African American": 12.466846,
+          "Hispanic / Latino": 18.500075,
+          "Other": 4.024117,
+          "White / Caucasian": 57.75321
+        },
+        "Male": {
+          "Asian / Asian American": 6.733596,
+          "Black / African American": 11.513713,
+          "Hispanic / Latino": 19.520745,
+          "Other": 3.974879,
+          "White / Caucasian": 58.257067
+        },
+        "Other": {
+          "Asian / Asian American": 6.999865,
+          "Black / African American": 11.999754,
+          "Hispanic / Latino": 19.000263,
+          "Other": 3.999987,
+          "White / Caucasian": 58.00013
+        }
+      }
+    },
+    "gender_x_party": {
+      "dimensions": [
+        "gender",
+        "party"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium",
+      "notes": [
+        "Pew NPORS 2026 party alignment; 'Other' gender and four-category party transformation modeled"
+      ],
+      "joint_percent": {
+        "Female": {
+          "Democrat": 15.75247726,
+          "Independent": 16.33318206,
+          "Other": 5.73549023,
+          "Republican": 12.17885045
+        },
+        "Male": {
+          "Democrat": 12.66527542,
+          "Independent": 16.0096883,
+          "Other": 4.0557251,
+          "Republican": 15.26931118
+        },
+        "Other": {
+          "Democrat": 0.58224732,
+          "Independent": 0.65712963,
+          "Other": 0.20878467,
+          "Republican": 0.55183838
+        }
+      },
+      "party_given_gender_percent": {
+        "Female": {
+          "Democrat": 31.504955,
+          "Independent": 32.666364,
+          "Other": 11.47098,
+          "Republican": 24.357701
+        },
+        "Male": {
+          "Democrat": 26.38599,
+          "Independent": 33.353517,
+          "Other": 8.449427,
+          "Republican": 31.811065
+        },
+        "Other": {
+          "Democrat": 29.112366,
+          "Independent": 32.856482,
+          "Other": 10.439233,
+          "Republican": 27.591919
+        }
+      }
+    },
+    "race_x_education": {
+      "dimensions": [
+        "race",
+        "education"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium",
+      "notes": [
+        "ACS 2024 education by race/ethnicity, age 25+; graduate-degree split modeled"
+      ],
+      "joint_percent": {
+        "Asian / Asian American": {
+          "Bachelor's degree": 2.2576211,
+          "Doctorate degree / Ph.D.": 0.26935391,
+          "High school diploma / GED": 1.06995398,
+          "Less than high school": 0.66394411,
+          "Master's degree / Professional degree": 1.60520204,
+          "Some college or Associate's degree": 1.13392486
+        },
+        "Black / African American": {
+          "Bachelor's degree": 1.89945904,
+          "Doctorate degree / Ph.D.": 0.18155277,
+          "High school diploma / GED": 4.14404194,
+          "Less than high school": 1.10735529,
+          "Master's degree / Professional degree": 1.08195523,
+          "Some college or Associate's degree": 3.58563573
+        },
+        "Hispanic / Latino": {
+          "Bachelor's degree": 2.76346066,
+          "Doctorate degree / Ph.D.": 0.19231543,
+          "High school diploma / GED": 6.16553933,
+          "Less than high school": 4.23519019,
+          "Master's degree / Professional degree": 1.14609481,
+          "Some college or Associate's degree": 4.49739958
+        },
+        "Other": {
+          "Bachelor's degree": 0.88733799,
+          "Doctorate degree / Ph.D.": 0.06943453,
+          "High school diploma / GED": 1.15640105,
+          "Less than high school": 0.34093042,
+          "Master's degree / Professional degree": 0.49488549,
+          "Some college or Associate's degree": 1.05101053
+        },
+        "White / Caucasian": {
+          "Bachelor's degree": 14.19212122,
+          "Doctorate degree / Ph.D.": 1.28734336,
+          "High school diploma / GED": 16.46406371,
+          "Less than high school": 2.65257998,
+          "Master's degree / Professional degree": 7.67186244,
+          "Some college or Associate's degree": 15.73202929
+        }
+      },
+      "education_given_race_percent": {
+        "Asian / Asian American": {
+          "Bachelor's degree": 32.25173,
+          "Doctorate degree / Ph.D.": 3.847913,
+          "High school diploma / GED": 15.285057,
+          "Less than high school": 9.484916,
+          "Master's degree / Professional degree": 22.931458,
+          "Some college or Associate's degree": 16.198927
+        },
+        "Black / African American": {
+          "Bachelor's degree": 15.828825,
+          "Doctorate degree / Ph.D.": 1.51294,
+          "High school diploma / GED": 34.533683,
+          "Less than high school": 9.227961,
+          "Master's degree / Professional degree": 9.016294,
+          "Some college or Associate's degree": 29.880298
+        },
+        "Hispanic / Latino": {
+          "Bachelor's degree": 14.54453,
+          "Doctorate degree / Ph.D.": 1.012186,
+          "High school diploma / GED": 32.450207,
+          "Less than high school": 22.290475,
+          "Master's degree / Professional degree": 6.032078,
+          "Some college or Associate's degree": 23.670524
+        },
+        "Other": {
+          "Bachelor's degree": 22.18345,
+          "Doctorate degree / Ph.D.": 1.735863,
+          "High school diploma / GED": 28.910026,
+          "Less than high school": 8.523261,
+          "Master's degree / Professional degree": 12.372137,
+          "Some college or Associate's degree": 26.275263
+        },
+        "White / Caucasian": {
+          "Bachelor's degree": 24.469175,
+          "Doctorate degree / Ph.D.": 2.219558,
+          "High school diploma / GED": 28.386317,
+          "Less than high school": 4.573414,
+          "Master's degree / Professional degree": 13.227349,
+          "Some college or Associate's degree": 27.124188
+        }
+      }
+    },
+    "race_x_income": {
+      "dimensions": [
+        "race",
+        "income"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium",
+      "notes": [
+        "ACS 2024 household income by race/ethnicity of householder; boundary interpolation"
+      ],
+      "joint_percent": {
+        "Asian / Asian American": {
+          "$100,000 to $167,999": 1.52338767,
+          "$168,000 or more": 2.46770366,
+          "$30,000 to $55,999": 0.77672097,
+          "$56,000 to $99,999": 1.32199184,
+          "Less than $30,000": 0.91019586
+        },
+        "Black / African American": {
+          "$100,000 to $167,999": 1.90217329,
+          "$168,000 or more": 1.2655728,
+          "$30,000 to $55,999": 2.53998994,
+          "$56,000 to $99,999": 3.01728019,
+          "Less than $30,000": 3.27498377
+        },
+        "Hispanic / Latino": {
+          "$100,000 to $167,999": 3.86446763,
+          "$168,000 or more": 2.75989056,
+          "$30,000 to $55,999": 3.65631223,
+          "$56,000 to $99,999": 5.21329366,
+          "Less than $30,000": 3.50603593
+        },
+        "Other": {
+          "$100,000 to $167,999": 0.84136704,
+          "$168,000 or more": 0.80238412,
+          "$30,000 to $55,999": 0.67796897,
+          "$56,000 to $99,999": 0.99885847,
+          "Less than $30,000": 0.6794214
+        },
+        "White / Caucasian": {
+          "$100,000 to $167,999": 12.86860437,
+          "$168,000 or more": 12.70444886,
+          "$30,000 to $55,999": 9.3490079,
+          "$56,000 to $99,999": 14.44857585,
+          "Less than $30,000": 8.62936303
+        }
+      },
+      "income_given_race_percent": {
+        "Asian / Asian American": {
+          "$100,000 to $167,999": 21.762681,
+          "$168,000 or more": 35.252909,
+          "$30,000 to $55,999": 11.096014,
+          "$56,000 to $99,999": 18.885598,
+          "Less than $30,000": 13.002798
+        },
+        "Black / African American": {
+          "$100,000 to $167,999": 15.851444,
+          "$168,000 or more": 10.54644,
+          "$30,000 to $55,999": 21.166583,
+          "$56,000 to $99,999": 25.144002,
+          "Less than $30,000": 27.291531
+        },
+        "Hispanic / Latino": {
+          "$100,000 to $167,999": 20.339303,
+          "$168,000 or more": 14.52574,
+          "$30,000 to $55,999": 19.243749,
+          "$56,000 to $99,999": 27.438388,
+          "Less than $30,000": 18.452821
+        },
+        "Other": {
+          "$100,000 to $167,999": 21.034176,
+          "$168,000 or more": 20.059603,
+          "$30,000 to $55,999": 16.949224,
+          "$56,000 to $99,999": 24.971462,
+          "Less than $30,000": 16.985535
+        },
+        "White / Caucasian": {
+          "$100,000 to $167,999": 22.187249,
+          "$168,000 or more": 21.904222,
+          "$30,000 to $55,999": 16.118979,
+          "$56,000 to $99,999": 24.911338,
+          "Less than $30,000": 14.878212
+        }
+      }
+    },
+    "race_x_party": {
+      "dimensions": [
+        "race",
+        "party"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium_high",
+      "notes": [
+        "Pew NPORS 2026 party alignment by race; four-category party transformation modeled"
+      ],
+      "joint_percent": {
+        "Asian / Asian American": {
+          "Democrat": 2.4869261,
+          "Independent": 2.3553741,
+          "Other": 0.67825913,
+          "Republican": 1.47944067
+        },
+        "Black / African American": {
+          "Democrat": 5.26811279,
+          "Independent": 3.94641397,
+          "Other": 1.67732733,
+          "Republican": 1.10814591
+        },
+        "Hispanic / Latino": {
+          "Democrat": 6.495077,
+          "Independent": 6.02825744,
+          "Other": 2.85219853,
+          "Republican": 3.62446703
+        },
+        "Other": {
+          "Democrat": 1.14228245,
+          "Independent": 1.30986852,
+          "Other": 0.42547548,
+          "Republican": 1.12237356
+        },
+        "White / Caucasian": {
+          "Democrat": 13.60760167,
+          "Independent": 19.36008597,
+          "Other": 4.36673954,
+          "Republican": 20.66557283
+        }
+      },
+      "party_given_race_percent": {
+        "Asian / Asian American": {
+          "Democrat": 35.527516,
+          "Independent": 33.648201,
+          "Other": 9.689416,
+          "Republican": 21.134867
+        },
+        "Black / African American": {
+          "Democrat": 43.90094,
+          "Independent": 32.886783,
+          "Other": 13.977728,
+          "Republican": 9.234549
+        },
+        "Hispanic / Latino": {
+          "Democrat": 34.184616,
+          "Independent": 31.727671,
+          "Other": 15.011571,
+          "Republican": 19.076142
+        },
+        "Other": {
+          "Democrat": 28.557061,
+          "Independent": 32.746713,
+          "Other": 10.636887,
+          "Republican": 28.059339
+        },
+        "White / Caucasian": {
+          "Democrat": 23.461382,
+          "Independent": 33.379459,
+          "Other": 7.528861,
+          "Republican": 35.630298
+        }
+      }
+    },
+    "education_x_party": {
+      "dimensions": [
+        "education",
+        "party"
+      ],
+      "unit": "percent_of_total_target_population",
+      "quality": "medium_high",
+      "notes": [
+        "Pew NPORS 2026 party alignment by education; six-category mapping and four-category party transformation modeled"
+      ],
+      "joint_percent": {
+        "Bachelor's degree": {
+          "Democrat": 6.88665956,
+          "Independent": 7.58262192,
+          "Other": 1.36581793,
+          "Republican": 6.16490058
+        },
+        "Doctorate degree / Ph.D.": {
+          "Democrat": 0.74851722,
+          "Independent": 0.70508746,
+          "Other": 0.10342966,
+          "Republican": 0.44296566
+        },
+        "High school diploma / GED": {
+          "Democrat": 7.2797423,
+          "Independent": 9.04650133,
+          "Other": 4.19047551,
+          "Republican": 8.48328087
+        },
+        "Less than high school": {
+          "Democrat": 2.25923037,
+          "Independent": 2.80753489,
+          "Other": 1.3004924,
+          "Republican": 2.63274234
+        },
+        "Master's degree / Professional degree": {
+          "Democrat": 4.49110333,
+          "Independent": 4.23052475,
+          "Other": 0.62057795,
+          "Republican": 2.65779397
+        },
+        "Some college or Associate's degree": {
+          "Democrat": 7.33474722,
+          "Independent": 8.62772964,
+          "Other": 2.41920656,
+          "Republican": 7.61831658
+        }
+      },
+      "party_given_education_percent": {
+        "Bachelor's degree": {
+          "Democrat": 31.302998,
+          "Independent": 34.466463,
+          "Other": 6.208263,
+          "Republican": 28.022275
+        },
+        "Doctorate degree / Ph.D.": {
+          "Democrat": 37.425861,
+          "Independent": 35.254373,
+          "Other": 5.171483,
+          "Republican": 22.148283
+        },
+        "High school diploma / GED": {
+          "Democrat": 25.10256,
+          "Independent": 31.194832,
+          "Other": 14.449916,
+          "Republican": 29.252693
+        },
+        "Less than high school": {
+          "Democrat": 25.10256,
+          "Independent": 31.194832,
+          "Other": 14.449916,
+          "Republican": 29.252693
+        },
+        "Master's degree / Professional degree": {
+          "Democrat": 37.425861,
+          "Independent": 35.254373,
+          "Other": 5.171483,
+          "Republican": 22.148283
+        },
+        "Some college or Associate's degree": {
+          "Democrat": 28.210566,
+          "Independent": 33.183576,
+          "Other": 9.304641,
+          "Republican": 29.301218
+        }
+      }
+    }
+  },
+  "methodology": {
+    "calibration": "Each pairwise table was raked to the exact supplied one-way marginals.",
+    "caveats": [
+      "Every one-way marginal exactly matches the supplied demographic percentages before output rounding.",
+      "The full joint tensor is a maximum-entropy/IPF synthesis constrained by the included pairwise distributions; it is not a directly published seven-variable Census table.",
+      "The Census sex tables contain Female and Male only. The 2% Other category is modeled and calibrated, so intersections involving Other have lower evidentiary strength.",
+      "Income means household income. Income cross-tabs use householder-based ACS tables as structural proxies and interpolate published income brackets to the supplied boundaries.",
+      "Party source tables report Democrat/Republican alignment, including leaners. The supplied Democrat, Republican, Independent and Other categories are modeled from the 2026 direct-party/leaner/no-lean composition and then calibrated to the supplied party marginal.",
+      "Race/ethnicity output is treated as mutually exclusive and calibrated to the supplied race marginal. Some ACS source iterations are not perfectly mutually exclusive before calibration.",
+      "Race-by-education structure is primarily for adults age 25+ because that is the universe of the most detailed ACS race-by-education tables.",
+      "These constraints improve realism but do not establish survey representativeness by themselves; synthetic personas remain model-generated observations."
+    ]
+  }
+}
