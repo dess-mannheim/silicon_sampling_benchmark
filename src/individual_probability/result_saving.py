@@ -8,7 +8,7 @@ import re
 from collections.abc import Mapping
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable
 
 import numpy as np
 import pandas as pd
@@ -23,8 +23,10 @@ from .demographic_tilt import (
     demographic_feature_vector,
     normalized_bin_scores,
 )
-from .qstn_setup import ProbabilityPromptMetadata
 from .specs import ProbabilitySpec, load_probability_specs
+
+if TYPE_CHECKING:
+    from .qstn_setup import ProbabilityPromptMetadata
 
 
 COMPOSITES = {
