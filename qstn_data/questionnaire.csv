@@ -17,7 +17,7 @@ funding_perceptions,"Do you think the federal government is spending too much, t
 belief_post,How accurate do you think this statement is? Human activities are causing climate change.,"[0,100]","['Not at all accurate', 'Extremely accurate']",True,101,0,"The person answers on a slider from {start} to {end}"
 policy_general,Should the U.S. government do more to reduce global warming?,"[0,100]","['Strongly oppose', 'Strongly support']",True,101,0,"The person answers on a slider from {start} to {end}"
 donation_ams,"Of the $10 bonus, how much would you like to donate to the American Meteorological Society (AMS)?","[0,10]","['0$','10$']",True,11,0,"The person answers on a slider from {start} to {end}"
-newsletter_signup,Did you subscribe to the Talking Climate newsletter on the previous page?,"[1,2]","['Yes', 'No']",False,2,,"The person answers on a slider from {start} to {end}"
+newsletter_signup,Did you subscribe to the Talking Climate newsletter on the previous page?,"[0,1]","['No', 'Yes']",False,2,0,"The person picks either {start} or {end}"
 inst_trust_epa,How much do you trust the Environmental Protection Agency (EPA)?,"[0,100]","['Not at all', 'Very strongly']",True,101,0,"The person answers on a slider from {start} to {end}"
 inst_trust_nasa,How much do you trust the National Aeronautics and Space Administration (NASA)?,"[0,100]","['Not at all', 'Very strongly']",True,101,0,"The person answers on a slider from {start} to {end}"
 inst_trust_noaa,How much do you trust the National Oceanic and Atmospheric Administration (NOAA)?,"[0,100]","['Not at all', 'Very strongly']",True,101,0,"The person answers on a slider from {start} to {end}"

@@ -1,0 +1,6 @@
+{
+  "n_individuals": 500,
+  "sampling_seed": 20260804,
+  "softmax_temperature": 1.4064310604266295,
+  "source_persona_file": "personas/individual_level_personas.csv"
+}
