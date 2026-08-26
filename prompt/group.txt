@@ -1,0 +1,61 @@
+SYSTEM MESSAGE
+You will be given a demographic and a set of questions. Your task is to predict the mean answer of this demographic for every question.
+ONLY respond in a JSON, that includes your prediction for every question in the following format:
+{
+trust_competence_1: "Your prediction e.g., 50"
+//All Other Questions
+behavior_donate: "Your prediction e.g., 50"
+}
+
+USER MESSAGE
+Predict the mean answer for each question for a representative sample of 5000 people of this demographic. age_band: 18-29.
+Before the participants were asked these questions, they were instructed to read:
+
+Science advances through an ongoing process of testing, refinement, and discovery. In some areas, evidence is so strong that scientists reach near-universal agreement. 
+In others, disagreement remains as researchers continue to collect data, exchange scientific arguments, and improve models. This process is not a weakness but a fundamental part of how science progresses.
+
+ Format is QUESTION_ID: QUESTION? ANSWER_OPTIONS
+trust_competence_1: How incompetent or competent are most climate scientists? The person answers on a slider from 0: Very incompetent to 100: very competent
+trust_competence_2: How unintelligent or intelligent are most climate scientists? The person answers on a slider from 0: Very unintelligent to 100: very intelligent
+trust_competence_3: How unqualified or qualified are most climate scientists? The person answers on a slider from 0: Very unqualified to 100: very qualified
+trust_integrity_1: How dishonest or honest are most climate scientists? The person answers on a slider from 0: Very dishonest to 100: very honest
+trust_integrity_2: How unethical or ethical are most climate scientists? The person answers on a slider from 0: Very unethical to 100: very ethical
+trust_integrity_3: How insincere or sincere are most climate scientists? The person answers on a slider from 0: Very insincere to 100: very sincere
+trust_benevolence_1: How unconcerned or concerned are most climate scientists about people’s wellbeing? The person answers on a slider from 0: Very unconcerned to 100: very concerned
+trust_benevolence_2: How uneager or eager are most climate scientists to improve others’ lives? The person answers on a slider from 0: Very uneager to 100: very eager
+trust_benevolence_3: How inconsiderate or considerate are most climate scientists of others’ interests? The person answers on a slider from 0: Very inconsiderate to 100: very considerate
+trust_openness_1: How open, if at all, are most climate scientists to feedback? The person answers on a slider from 0: Not open at all to 100: Very open
+trust_openness_2: How unwilling or willing are most climate scientists to be transparent? The person answers on a slider from 0: Very unwilling to 100: Very willing
+trust_openness_3: How much or how little attention do climate scientists pay to other people's views? The person answers on a slider from 0: Very little attention to 100: A great deal of attention
+trust_post: How much do you trust climate scientists? The person answers on a slider from 0: Not at all to 100: Very strongly
+distrust_post: How much do you distrust climate scientists? The person answers on a slider from 0: Not at all to 100: Very strongly
+funding_perceptions: Do you think the federal government is spending too much, too little or about the right amount of money on climate change research? The person answers on a slider from 0: Far too little to 100: Far too much
+belief_post: How accurate do you think this statement is? Human activities are causing climate change. The person answers on a slider from 0: Not at all accurate to 100: Extremely accurate
+policy_general: Should the U.S. government do more to reduce global warming? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+donation_ams: Of the $10 bonus, how much would you like to donate to the American Meteorological Society (AMS)? The person answers on a slider from 0: 0$ to 10: 10$
+newsletter_signup: Did you subscribe to the Talking Climate newsletter on the previous page? Options are: 0: No, 1: Yes
+inst_trust_epa: How much do you trust the Environmental Protection Agency (EPA)? The person answers on a slider from 0: Not at all to 100: Very strongly
+inst_trust_nasa: How much do you trust the National Aeronautics and Space Administration (NASA)? The person answers on a slider from 0: Not at all to 100: Very strongly
+inst_trust_noaa: How much do you trust the National Oceanic and Atmospheric Administration (NOAA)? The person answers on a slider from 0: Not at all to 100: Very strongly
+inst_trust_universities: How much do you trust universities and colleges? The person answers on a slider from 0: Not at all to 100: Very strongly
+inst_trust_federal_gov: How much do you trust the federal government? The person answers on a slider from 0: Not at all to 100: Very strongly
+policy_role_1: Climate scientists should work closely with policy makers to integrate scientific results into policy-making. The person answers on a slider from 0: Strongly disagree to 100: Strongly agree
+policy_role_2: Climate scientists should actively advocate for specific policies. The person answers on a slider from 0: Strongly disagree to 100: Strongly agree
+policy_role_3: Climate scientists should communicate their findings to policy makers. The person answers on a slider from 0: Strongly disagree to 100: Strongly agree
+policy_role_4: Climate scientists should be more involved in the policy-making process. The person answers on a slider from 0: Strongly disagree to 100: Strongly agree
+concern_1: How concerned are you about climate change? The person answers on a slider from 0: Not at all to 100: Extremely
+concern_2: How serious a problem is climate change? The person answers on a slider from 0: Not at all to 100: Extremely
+concern_3: Relative to other issues facing the U.S., how important is climate change? The person answers on a slider from 0: The least important issue to 100: The most important issue
+policy_specific_1: How much do you support or oppose raising taxes on fossil fuels (e.g., gas, oil, coal)? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_2: How much do you support or oppose expanding infrastructure for public transportation? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_3: How much do you support or oppose increasing the use of sustainable energy such as wind and solar energy? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_4: How much do you support or oppose protecting forested and land areas? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_5: How much do you support or oppose increasing taxes on carbon-intensive foods (e.g. beef and dairy products)? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_6: How much do you support or oppose investing more in green jobs and businesses? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+policy_specific_7: How much do you support or oppose introducing laws to keep waterways and oceans clean? The person answers on a slider from 0: Strongly oppose to 100: Strongly support
+behavior_meat: How likely are you to eat less meat in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely
+behavior_transport: How likely are you to walk bicycle carpool or take public transportation more often instead of driving by yourself in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely
+behavior_solar: How likely are you to install a solar panel in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely
+behavior_fly: How likely are you to go on less personal (non-business) air travel in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely
+behavior_talk: How likely are you to talk to friends and family about the importance of climate change in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely
+behavior_donate: How likely are you to donate to an environmental NGO in the next twelve months? The person answers on a slider from 0: Not likely at all to 100: Extremely likely

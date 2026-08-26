@@ -1,0 +1,49 @@
+SYSTEM MESSAGE
+You are simulating one exact survey respondent. Predict that respondent's uncertainty over their answer to EVERY question as probabilities over the supplied response options.
+
+Return ONLY one valid JSON object. Do not include explanation, reasoning, Markdown, a code fence, or any text before or after the JSON.
+
+The JSON object's keys must be exactly the question IDs supplied below, with every ID appearing exactly once. Each value must be an object whose keys are exactly the numeric response codes printed for that question. Every probability must be a finite JSON number greater than or equal to 0, and the probabilities within each question must sum to exactly 1.
+
+For example, a four-option item with response codes 1 through 4 is written as:
+{"worry":{"1":0.10,"2":0.20,"3":0.40,"4":0.30}}
+
+Use every required question ID and response code literally. Do not rename them, add keys, omit keys, use percentages, or give a single-point answer. Base each probability distribution on the stated persona.
+
+USER MESSAGE
+The survey respondent has already answered the following questions:
+Q: What is your gender? (Male, Female, Other)
+A: Male
+Q: What is your age group? (18-29, 30-44, 45-59, 60+)
+A: 45-59
+Q: Please select which race / ethnicity you most identify as. (White / Caucasian, Black / African American, Hispanic / Latino, Asian / Asian American, Other)
+A: White / Caucasian
+Q: What is the highest level of school that you have completed? (Less than high school, High school diploma / GED, Some college or Associate's degree, Bachelor's degree, Master's degree / Professional degree, Doctorate degree / Ph.D.)
+A: Master's degree / Professional degree
+Q: What is your total yearly family/household income before taxes? (Less than $30,000, $30,000 to $55,999, $56,000 to $99,999, $100,000 to $167,999, $168,000 or more)
+A: $168,000 or more
+Q: Generally speaking, do you usually think of yourself as a Republican, a Democrat, an Independent, or what? (Republican, Democrat, Independent, Other)
+A: Other
+
+For every question below, return a probability object over its original answer options.
+QUESTION_ID: QUESTION? ORIGINAL_ANSWER_OPTIONS
+happening: Recently, you may have noticed that global warming has been getting some attention in the news. Global warming refers to the idea that the world's average temperature has been increasing over the past 150 years, may be increasing more in the future, and that the world's climate may change as a result. What do you think: Do you think that global warming is happening? Options are: 1: No, 2: Don't know, 3: Yes
+cause_recoded: Assuming global warming is happening, do you think it is... Options are: 1: Don't know, 2: Other, 3: Neither because global warming isn't happening, 4: Caused mostly by natural changes in the environment, 5: Caused by human activities and natural changes, 6: Caused mostly by human activities
+sci_consensus: Which comes closest to your own view? Options are: 1: Don't know enough to say, 2: There is a lot of disagreement among scientists about whether or not global warming is happening, 3: Most scientists think global warming is not happening, 4: Most scientists think global warming is happening
+worry: How worried are you about global warming? Options are: 1: Not at all worried, 2: Not very worried, 3: Somewhat worried, 4: Very worried
+harm_personally: How much do you think global warming will harm you personally? Options are: 0: Don't know, 1: Not at all, 2: Only a little, 3: A moderate amount, 4: A great deal
+harm_US: How much do you think global warming will harm people in the United States? Options are: 0: Don't know, 1: Not at all, 2: Only a little, 3: A moderate amount, 4: A great deal
+harm_dev_countries: How much do you think global warming will harm people in developing countries? Options are: 0: Don't know, 1: Not at all, 2: Only a little, 3: A moderate amount, 4: A great deal
+harm_future_gen: How much do you think global warming will harm future generations of people? Options are: 0: Don't know, 1: Not at all, 2: Only a little, 3: A moderate amount, 4: A great deal
+harm_plants_animals: How much do you think global warming will harm plant and animal species? Options are: 0: Don't know, 1: Not at all, 2: Only a little, 3: A moderate amount, 4: A great deal
+when_harm_US: When do you think global warming will start to harm people in the United States? Options are: 1: Never, 2: In 100 years, 3: In 50 years, 4: In 25 years, 5: In 10 years, 6: They are being harmed right now
+reg_CO2_pollutant: How much do you support or oppose the following policies? Regulate carbon dioxide (the primary greenhouse gas) as a pollutant. Options are: 1: Strongly oppose, 2: Somewhat oppose, 3: Somewhat support, 4: Strongly support
+fund_research: How much do you support or oppose the following policies? Fund more research into renewable energy sources, such as solar and wind power. Options are: 1: Strongly oppose, 2: Somewhat oppose, 3: Somewhat support, 4: Strongly support
+reduce_tax: How much do you support or oppose the following policies? Require fossil fuel companies to pay a carbon tax and use the money to reduce other taxes (such as income tax) by an equal amount. Options are: 1: Strongly oppose, 2: Somewhat oppose, 3: Somewhat support, 4: Strongly support
+priority_cleanenergy: Do you think that developing sources of clean energy should be a low, medium, high, or very high priority for the president and Congress? Options are: 1: Low, 2: Medium, 3: High, 4: Very high
+priority: Do you think global warming should be a low, medium, high, or very high priority for the president and Congress? Options are: 1: Low, 2: Medium, 3: High, 4: Very high
+generate_renewable: How much do you support or oppose the following policies? Generate renewable energy (solar and wind) on public land in the U.S. Options are: 1: Strongly oppose, 2: Somewhat oppose, 3: Somewhat support, 4: Strongly support
+teach_gw: How much do you agree or disagree with the following statements? Schools should teach our children about the causes, consequences, and potential solutions to global warming. Options are: 1: Strongly disagree, 2: Somewhat disagree, 3: Somewhat agree, 4: Strongly agree
+transition_economy: How much do you support or oppose the following policies? Transition the U.S. economy (including electric utilities, transportation, buildings, and industry) from fossil fuels to 100% clean energy by 2050. Options are: 1: Strongly oppose, 2: Somewhat oppose, 3: Somewhat support, 4: Strongly support
+discuss_GW: How often do you discuss global warming with your family and friends? Options are: 1: Never, 2: Rarely, 3: Occasionally, 4: Often
+hear_GW_media: About how often do you hear about global warming in the media (TV, movies, radio, newspapers/news websites, magazines, etc.)? Options are: 0: Not sure, 1: Never, 2: Once a year or less often, 3: Several times a year, 4: At least once a month, 5: At least once a week
