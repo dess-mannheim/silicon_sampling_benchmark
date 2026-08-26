@@ -1,31 +1,36 @@
 {
-  "team_id": "example",
-  "team_name": "Example Team (replace me)",
-  "contact": "name@institution.edu",
+  "team_id": "team_6",
+  "team_name": "team_6",
+  "contact": "maximilian.kreutner@uni-mannheim.de",
   "creators": [
     {
-      "name": "Lastname, Firstname",
-      "affiliation": "Your institution",
-      "orcid": ""
+      "name": "Kreutner, Maximilian",
+      "affiliation": "University Mannheim",
+      "orcid": "0009-0002-0479-8868"
+    },
+    {
+      "name": "Strohmaier, Markus",
+      "affiliation": "University Mannheim",
+      "orcid": "0000-0002-5485-5720"
     }
   ],
-  "abstract": "",
+  "abstract": "We present a Tier-1 per-respondent simulation approach for predicting responses to 16 climate communication interventions and a control condition. We construct 18,000 synthetic U.S. personas by sampling a joint demographic distribution constrained by Census, CPS, and Pew pairwise statistics, and balance their assignment across the 17 conditions. Using QSTN and Qwen/Qwen3.6-27B, we present each persona, assigned intervention, and the full questionnaire in a single battery prompt. The model reports a probability distribution over response ranges for every survey item. We calibrate these distributions using one global temperature selected by running the same approach on the Climate Change in the American Mind survey, then draw seeded, grid-heaped individual responses and compute the required composite outcomes. This design combines population-informed personas with probabilistic responses to represent response uncertainty and generate a reproducible individual-level prediction file covering all benchmark outcomes.",
   "license": "CC-BY-4.0",
   "tier": 1,
   "entry": "primary",
   "approach_family": "per-respondent simulation, single model",
   "models": [
-    "gpt-4o-mini-2024-07-18"
+    "Qwen/Qwen3.6-27B"
   ],
-  "code_repository": "https://github.com/your-team/your-repo",
+  "code_repository": "https://github.com/dess-mannheim/silicon_sampling_benchmark",
   "code_doi": null,
   "disclosure_class": "A",
   "escrow_doi": null,
-  "zenodo_doi": null,
+  "zenodo_doi": "10.5281/zenodo.22108434",
   "prediction_files": [
     {
-      "file": "predictions/example_T1_primary_v1.csv",
-      "sha256": "0f24e117fcf6803743a12ab43f42bf8b0a7893fb9a706e5303cae3eadb79cc59"
+      "file": "predictions/team_6_T1_primary_v1.csv",
+      "sha256": "5a1b1f5ac46b81c2bea33cc1db6a6c530ae9ad4405df52acf57a8e4d7b75c9e3"
     }
   ],
   "coverage": {
