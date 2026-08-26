@@ -1,25 +1,35 @@
 import argparse
 import logging
 
+from ccam_probability.qstn_setup import run_ccam_probability_survey
+from ccam_probability.result_saving import save_ccam_probability_results
 from group_level.qstn_setup import run_tier2_survey
 from group_level.result_saving import save_tier2_results
 from individual_level.qstn_setup import run_tier1_survey
 from individual_level.result_saving import save_tier1_results
+from individual_probability.qstn_setup import load_probability_config, run_probability_tier1_survey
+from individual_probability.result_saving import save_probability_tier1_results
 
 
 def args():
     p = argparse.ArgumentParser(description="Run benchmark predictions with a local vLLM model.")
     p.add_argument("--model-id", required=True)
-    p.add_argument("--experiment", choices=("group", "individual"), default="group")
+    p.add_argument(
+        "--experiment",
+        choices=("group", "individual", "individual-probability", "ccam-probability"),
+        default="group",
+    )
     p.add_argument("--individual-config", default=None)
+    p.add_argument("--individual-probability-config", default=None)
+    p.add_argument("--ccam-probability-config", default=None)
     g = p.add_mutually_exclusive_group()
     g.add_argument("--enable-thinking", action="store_true", default=False)
     g.add_argument("--no-enable-thinking", action="store_false", dest="enable_thinking")
     p.add_argument("--reasoning-start-token", default="<think>")
     p.add_argument("--reasoning-end-token", default="</think>")
-    p.add_argument("--max-model-len", type=int, default=10000)
-    p.add_argument("--max-tokens", type=int, default=10000)
-    p.add_argument("--gpu-memory-utilization", type=float, default=0.9)
+    p.add_argument("--max-model-len", type=int, default=15000)
+    p.add_argument("--max-tokens", type=int, default=15000)
+    p.add_argument("--gpu-memory-utilization", type=float, default=0.95)
     p.add_argument("--tensor-parallel-size", type=int, default=1)
     p.add_argument("--max-num-seqs", type=int, default=None)
     h = p.add_mutually_exclusive_group()
@@ -40,6 +50,26 @@ def main():
     if a.experiment == "individual":
         results, metadata = run_tier1_survey(**common, config_path=a.individual_config)
         paths = save_tier1_results(model_id=a.model_id, survey_results=results, prompt_metadata=metadata)
+    elif a.experiment == "individual-probability":
+        config = load_probability_config(a.individual_probability_config)
+        results, metadata = run_probability_tier1_survey(
+            **common, config_path=a.individual_probability_config
+        )
+        paths = save_probability_tier1_results(
+            model_id=a.model_id,
+            survey_results=results,
+            prompt_metadata=metadata,
+            config=config,
+        )
+    elif a.experiment == "ccam-probability":
+        results, metadata = run_ccam_probability_survey(
+            **common, config_path=a.ccam_probability_config
+        )
+        paths = save_ccam_probability_results(
+            model_id=a.model_id,
+            survey_results=results,
+            prompt_metadata=metadata,
+        )
     else:
         results, metadata = run_tier2_survey(**common)
         paths = save_tier2_results(model_id=a.model_id, survey_results=results, prompt_metadata=metadata)

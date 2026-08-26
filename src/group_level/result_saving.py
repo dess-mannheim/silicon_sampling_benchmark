@@ -103,14 +103,18 @@ def as_number(value: Any) -> float | None:
 
 
 def newsletter_as_number(value: Any) -> float | None:
-    """Convert newsletter labels to the benchmark's 0/1 coding."""
+    """Normalize the questionnaire's canonical 0=No, 1=Yes coding."""
     if isinstance(value, str):
         normalized = value.strip().casefold()
-        if normalized in {"yes", "true", "1"}:
+        if normalized in {"yes", "true"}:
             return 1.0
-        if normalized in {"no", "false", "0", "2"}:
+        if normalized in {"no", "false"}:
             return 0.0
-    return as_number(value)
+    value = as_number(value)
+    # Accept the former displayed option 2=No for already-generated direct runs.
+    if value == 2.0:
+        return 0.0
+    return float(value) if value in {0.0, 1.0} else None
 
 
 def mean_of_answers(answers: dict[str, Any], item_ids: list[str]) -> float | None:

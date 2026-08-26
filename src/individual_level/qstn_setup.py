@@ -20,8 +20,8 @@ SYSTEM_PROMPT = (
     "every question ID to its answer."
 )
 PROMPT = (
-    "Answer as this exact respondent persona: {persona}. Do not predict a group mean. "
-    "Before answering, the respondent was instructed to read:\n\n{text}\n\n"
+    "The survey respondent has already answered the following questions:\n{persona}\n\n"
+    "Predict an individual, do not predict a group mean. Before answering the remaining questions, the respondent was instructed to read:\n\n{text}\n\n"
     "QUESTION_ID: QUESTION? ANSWER_OPTIONS\n{questions}"
 )
 DEMO_COLUMNS = ["gender", "age_band", "race", "education", "income", "party"]
@@ -118,8 +118,38 @@ def load_or_create_persona_assignments(config: dict[str, Any], moderators: dict[
     return assignments
 
 
-def _persona_text(persona: Persona) -> str:
-    return "; ".join(f"{name.replace('_', ' ')}: {value}" for name, value in persona.demographics.items())
+def format_persona_answers(persona: Persona) -> str:
+    """Render the six modeled demographics as the respondent's survey answers."""
+    demographics = persona.demographics
+    questions = (
+        ("What is your gender? (Male, Female, Other)", "gender"),
+        ("What is your age group? (18-29, 30-44, 45-59, 60+)", "age_band"),
+        (
+            "Please select which race / ethnicity you most identify as. "
+            "(White / Caucasian, Black / African American, Hispanic / Latino, "
+            "Asian / Asian American, Other)",
+            "race",
+        ),
+        (
+            "What is the highest level of school that you have completed? "
+            "(Less than high school, High school diploma / GED, Some college or "
+            "Associate's degree, Bachelor's degree, Master's degree / Professional "
+            "degree, Doctorate degree / Ph.D.)",
+            "education",
+        ),
+        (
+            "What is your total yearly family/household income before taxes? "
+            "(Less than $30,000, $30,000 to $55,999, $56,000 to $99,999, "
+            "$100,000 to $167,999, $168,000 or more)",
+            "income",
+        ),
+        (
+            "Generally speaking, do you usually think of yourself as a Republican, "
+            "a Democrat, an Independent, or what? (Republican, Democrat, Independent, Other)",
+            "party",
+        ),
+    )
+    return "\n".join(f"Q: {question}\nA: {demographics[key]}" for question, key in questions)
 
 
 def build_prompts(root: Path | None = None, config_path: Path | None = None):
@@ -131,7 +161,7 @@ def build_prompts(root: Path | None = None, config_path: Path | None = None):
     prompts, metadata = [], []
     for persona, condition in assignments:
         prompt = LLMPrompt(questionnaire_name=f"{condition}__{persona.profile_id}", questionnaire_source=str(questionnaire), system_prompt=SYSTEM_PROMPT,
-            prompt=PROMPT.format(persona=_persona_text(persona), text=conditions[condition][0], questions=placeholder.PROMPT_QUESTIONS))
+            prompt=PROMPT.format(persona=format_persona_answers(persona), text=conditions[condition][0], questions=placeholder.PROMPT_QUESTIONS))
         questions = list(prompt.get_questions())
         prompt.prepare_prompt(question_stem=[f"{q.item_id}: {placeholder.QUESTION_CONTENT} {placeholder.PROMPT_OPTIONS}" for q in questions],
                               answer_options={q.item_id: q.answer_options for q in questions})

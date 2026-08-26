@@ -39,14 +39,18 @@ def questionnaire_scales(root: Path) -> dict[str, tuple[float, float]]:
 
 
 def _newsletter(value: Any) -> float | None:
+    """Normalize the questionnaire's canonical 0=No, 1=Yes coding."""
     if isinstance(value, str):
         value = value.strip().casefold()
-        if value in {"yes", "true", "1"}:
+        if value in {"yes", "true"}:
             return 1.0
-        if value in {"no", "false", "0", "2"}:
+        if value in {"no", "false"}:
             return 0.0
     value = as_number(value)
-    return {1.0: 1.0, 2.0: 0.0, 0.0: 0.0}.get(value)
+    # Accept the former displayed option 2=No for already-generated direct runs.
+    if value == 2.0:
+        return 0.0
+    return float(value) if value in {0.0, 1.0} else None
 
 
 def normalized_answer(item_id: str, value: Any, scales: dict[str, tuple[float, float]]) -> float | None:
